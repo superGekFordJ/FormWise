@@ -1,0 +1,1165 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>产品/服务满意度调查问卷</title>
+      <style>
+    :root {
+      --background-hsl: 220 14% 96%;
+      --foreground-hsl: 220 25% 15%;
+      --card-hsl: 0 0% 100%;
+      --card-foreground-hsl: 220 25% 15%;
+      --primary-hsl: 127 35% 73%;
+      --primary-foreground-hsl: 127 30% 25%;
+      --secondary-hsl: 220 14% 93%;
+      --secondary-foreground-hsl: 220 20% 30%;
+      --muted-hsl: 220 10% 90%;
+      --muted-foreground-hsl: 220 20% 45%;
+      --accent-hsl: 174 63% 37%;
+      --accent-foreground-hsl: 174 100% 96%;
+      --destructive-hsl: 0 84.2% 60.2%;
+      --destructive-foreground-hsl: 0 0% 98%;
+      --border-hsl: 220 10% 88%;
+      --input-hsl: 220 10% 88%;
+      --ring-hsl: 127 35% 65%;
+      --radius: 0.5rem;
+    }
+    .dark {
+      --background-hsl: 220 25% 10%;
+      --foreground-hsl: 220 15% 90%;
+      --card-hsl: 220 25% 12%;
+      --card-foreground-hsl: 220 15% 90%;
+      --primary-hsl: 127 40% 65%;
+      --primary-foreground-hsl: 127 25% 15%;
+      --secondary-hsl: 220 15% 20%;
+      --secondary-foreground-hsl: 220 10% 80%;
+      --muted-hsl: 220 15% 25%;
+      --muted-foreground-hsl: 220 10% 60%;
+      --accent-hsl: 174 60% 45%;
+      --accent-foreground-hsl: 174 100% 97%;
+      --destructive-hsl: 0 62.8% 30.6%;
+      --destructive-foreground-hsl: 0 0% 98%;
+      --border-hsl: 220 15% 30%;
+      --input-hsl: 220 15% 30%;
+      --ring-hsl: 127 40% 55%;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background-color: hsl(var(--background-hsl));
+      color: hsl(var(--foreground-hsl));
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    .form-header-banner {
+      background-color: hsl(var(--accent-hsl));
+      color: hsl(var(--accent-foreground-hsl));
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .form-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin: 0 auto;
+    }
+    .form-controls {
+      position: absolute;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .zoom-control {
+      padding: 0.25rem 0.5rem;
+      background-color: hsla(var(--background-hsl), 0.2);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: hsl(var(--accent-foreground-hsl));
+    }
+    .zoom-control button {
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.2rem;
+    }
+    .zoom-control button:hover {
+      background-color: hsla(var(--background-hsl), 0.3);
+    }
+    .reset-button {
+      background-color: hsla(var(--background-hsl), 0.2);
+      border: none;
+      color: hsl(var(--accent-foreground-hsl));
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .reset-button:hover {
+      background-color: hsla(var(--background-hsl), 0.3);
+    }
+    .form-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: hsl(var(--card-hsl));
+      color: hsl(var(--card-foreground-hsl));
+      padding: 2rem;
+      border-radius: calc(var(--radius) - 2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid hsl(var(--border-hsl) / 0.8);
+    }
+    .progress-indicator {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      color: hsl(var(--muted-foreground-hsl));
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid hsl(var(--border-hsl) / 0.6);
+      position: relative;
+    }
+    .progress-indicator::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 33.33%;
+      height: 3px;
+      background-color: hsl(var(--accent-hsl));
+      border-radius: 3px 3px 0 0;
+      transition: width 0.3s ease;
+    }
+    .progress-indicator[data-step="2"]::after {
+      width: 66.66%;
+    }
+    .progress-indicator[data-step="3"]::after {
+      width: 100%;
+    }
+    .progress-indicator span {
+      font-weight: 600;
+      color: hsl(var(--accent-hsl));
+    }
+    .form-header h1 {
+      color: hsl(var(--primary-foreground-hsl));
+      font-size: 2.2em;
+      margin-bottom: 0.75em;
+      text-align: center;
+    }
+    .form-header p {
+      color: hsl(var(--muted-foreground-hsl));
+      margin-bottom: 2em;
+      text-align: center;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    .form-field {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid hsl(var(--border-hsl));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--card-hsl)); 
+      transition: all 0.2s ease;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .form-field:hover {
+      border-color: hsl(var(--input-hsl));
+    }
+    .form-field.needs-input {
+      border-left: 3px solid hsl(var(--accent-hsl));
+    }
+    .form-field.needs-input input, 
+    .form-field.needs-input textarea,
+    .form-field.needs-input select {
+      border-color: hsl(var(--accent-hsl) / 0.6);
+    }
+    .form-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: hsl(var(--foreground-hsl));
+      font-size: 1rem;
+    }
+    .form-field input[type="text"],
+    .form-field input[type="number"],
+    .form-field input[type="date"],
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid hsl(var(--input-hsl));
+      border-radius: 20px;
+      box-sizing: border-box;
+      background-color: hsl(var(--card-hsl));
+      color: hsl(var(--foreground-hsl));
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: hsl(var(--muted-foreground-hsl) / 0.6);
+      opacity: 1;
+      transition: opacity 0.2s ease;
+    }
+    
+    .form-field input:focus::placeholder,
+    .form-field textarea:focus::placeholder {
+      opacity: 0.5;
+    }
+    .form-field input:focus, 
+    .form-field textarea:focus, 
+    .form-field select:focus {
+      outline: none;
+      border-color: hsl(var(--accent-hsl));
+      box-shadow: 0 0 0 2px hsl(var(--accent-hsl) / 0.1);
+    }
+    .form-field .radio-group div, 
+    .form-field .checkbox-group div {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 20px;
+      transition: background-color 0.15s ease;
+    }
+    .form-field .radio-group div:hover, 
+    .form-field .checkbox-group div:hover {
+      background-color: hsl(var(--secondary-hsl));
+    }
+    .form-field input[type="radio"], 
+    .form-field input[type="checkbox"] {
+      margin-right: 0.75rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      accent-color: hsl(var(--accent-hsl));
+      cursor: pointer;
+    }
+    .form-field input[type="radio"]:checked + label,
+    .form-field input[type="checkbox"]:checked + label {
+      color: hsl(var(--accent-hsl));
+      font-weight: 500;
+    }
+    .form-field .radio-group label,
+    .form-field .checkbox-group label {
+      margin-bottom: 0;
+      font-weight: normal;
+      cursor: pointer;
+      flex: 1;
+    }
+    .form-field .required-star {
+      color: hsl(var(--destructive-hsl));
+      margin-left: 0.25rem;
+      font-size: 1.2em;
+      line-height: 0;
+      position: relative;
+      top: 2px;
+    }
+    .error-message {
+      color: hsl(var(--destructive-hsl));
+      font-size: 0.75rem;
+      margin-top: 0.35rem;
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      position: absolute;
+      left: 1.5rem;
+      bottom: 0.35rem;
+    }
+    .error-message:not(:empty) {
+      display: flex;
+    }
+    .error-message::before {
+      content: "";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1rem;
+      height: 1rem;
+      background-color: hsl(var(--destructive-hsl));
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E");
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E");
+      mask-size: cover;
+      -webkit-mask-size: cover;
+      margin-right: 0.35rem;
+    }
+    .submit-button {
+      background-color: hsl(var(--accent-hsl));
+      color: hsl(var(--accent-foreground-hsl));
+      padding: 0.9rem 1.5rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: block;
+      width: 100%;
+      margin-top: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .submit-button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    .submit-button:hover {
+      background-color: hsl(var(--accent-hsl) / 0.9);
+      box-shadow: 0 4px 10px hsl(var(--accent-hsl) / 0.25);
+      transform: translateY(-1px);
+    }
+    .submit-button:active::after {
+      animation: ripple 0.6s ease-out;
+    }
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(30, 30);
+        opacity: 0;
+      }
+    }
+    .submit-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    #review-section { 
+      margin-top: 2rem; 
+      padding-top: 1.5rem; 
+      border-top: 1px solid hsl(var(--border-hsl)); 
+    }
+    #review-section h2 { 
+      color: hsl(var(--primary-foreground-hsl)); 
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    #review-section .answer-item { 
+      margin-bottom: 1.25rem; 
+      padding: 1rem 1.25rem; 
+      border: 1px solid hsl(var(--muted-hsl));
+      background-color: hsl(var(--card-hsl));
+      border-radius: var(--radius);
+    }
+    #review-section .answer-item:last-child { 
+      margin-bottom: 1.5rem; 
+    }
+    #review-section .answer-label { 
+      font-weight: 600; 
+      color: hsl(var(--accent-hsl));
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    #review-section .answer-value { 
+      color: hsl(var(--foreground-hsl)); 
+      display: block;
+      word-break: break-word;
+    }
+    .action-buttons { 
+      margin-top: 2rem; 
+      display: flex; 
+      gap: 1rem; 
+      justify-content: space-between; 
+      flex-wrap: wrap; 
+    }
+    .action-buttons button {
+      background-color: hsl(var(--secondary-hsl));
+      color: hsl(var(--secondary-foreground-hsl));
+      padding: 0.75rem 1.25rem;
+      border: 1px solid hsl(var(--border-hsl));
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: all 0.2s ease;
+      flex: 1;
+      min-width: 200px;
+    }
+    .action-buttons button:hover {
+      background-color: hsl(var(--secondary-hsl) / 0.8);
+      border-color: hsl(var(--secondary-foreground-hsl) / 0.2);
+    }
+    .action-buttons button.primary-action {
+      background-color: hsl(var(--accent-hsl));
+      color: hsl(var(--accent-foreground-hsl));
+      border: none;
+    }
+    .action-buttons button.primary-action:hover {
+      background-color: hsl(var(--accent-hsl) / 0.9);
+      box-shadow: 0 4px 10px hsl(var(--accent-hsl) / 0.25);;
+      transform: translateY(-1px);
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
+    .hidden { display: none !important; } /* Important to override other display styles */
+
+    /* Minimalistic icons using SVG */
+    .icon { 
+      display: inline-block; 
+      width: 1.1em; 
+      height: 1.1em; 
+      margin-right: 0.5em; 
+      vertical-align: -0.2em; 
+      fill: currentColor; 
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { background-color: hsl(var(--background-hsl)); color: hsl(var(--foreground-hsl)); }
+      .form-container { background-color: hsl(var(--card-hsl)); color: hsl(var(--card-foreground-hsl)); border-color: hsl(var(--border-hsl));}
+      .progress-indicator { color: hsl(var(--muted-foreground-hsl)); border-bottom-color: hsl(var(--border-hsl)); }
+      .progress-indicator span { color: hsl(var(--accent-hsl)); }
+      .form-header h1 { color: hsl(var(--primary-hsl)); }
+      .form-header p { color: hsl(var(--muted-foreground-hsl)); }
+      .form-field { background-color: hsl(var(--background-hsl)); border-color: hsl(var(--border-hsl)); };
+      .form-field:hover { border-color: hsl(var(--input-hsl)); }
+      .form-field.needs-input input, 
+      .form-field.needs-input textarea,
+      .form-field.needs-input select {
+        border-color: hsl(var(--accent-hsl) / 0.6);
+      }
+      .form-field label { color: hsl(var(--foreground-hsl)); }
+      .form-field input[type="text"],
+      .form-field input[type="number"],
+      .form-field input[type="date"],
+      .form-field textarea,
+      .form-field select {
+        border-color: hsl(var(--input-hsl));
+        background-color: hsl(var(--card-hsl));
+        color: hsl(var(--foreground-hsl));
+      }
+      .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+        border-color: hsl(var(--accent-hsl));
+        box-shadow: 0 0 0 3px hsl(var(--accent-hsl) / 0.15);
+      }
+      .form-field .radio-group div:hover, 
+      .form-field .checkbox-group div:hover {
+        background-color: hsl(var(--secondary-hsl));
+      }
+      #review-section h2 { color: hsl(var(--primary-hsl)); }
+      #review-section .answer-item { 
+        border-color: hsl(var(--muted-hsl));
+        background-color: hsl(var(--card-hsl)); 
+      }
+      #review-section .answer-label { color: hsl(var(--accent-hsl)); }
+      #review-section .answer-value { color: hsl(var(--foreground-hsl)); }
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 640px) {
+      body {
+        padding: 0;
+      }
+      .form-header-banner {
+        padding: 0.75rem 1rem;
+      }
+      .form-container {
+        padding: 1.5rem;
+        margin: 1rem auto;
+        border-radius: 0;
+        box-shadow: none;
+        border-left: none;
+        border-right: none;
+      }
+      .form-header h1 {
+        font-size: 1.8em;
+      }
+      .form-header p {
+        max-width: 100%;
+      }
+      .form-field {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .action-buttons {
+        flex-direction: column;
+      }
+      .action-buttons button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .form-field .single-checkbox {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: calc(var(--radius) - 4px);
+      transition: background-color 0.15s ease;
+    }
+    .form-field .single-checkbox:hover {
+      background-color: hsl(var(--secondary-hsl));
+    }
+    .form-field .single-checkbox input[type="checkbox"] {
+      margin-right: 0.75rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      accent-color: hsl(var(--accent-hsl));
+      cursor: pointer;
+    }
+    .form-field .single-checkbox label {
+      margin-bottom: 0;
+      font-weight: normal;
+      cursor: pointer;
+      flex: 1;
+    }
+  </style>
+    </head>
+    <body>
+      <header class="form-header-banner">
+        <div class="form-logo">FormWise</div>
+      </header>
+      <div class="form-container">
+        <div class="progress-indicator" id="progress-indicator" data-step="1">Step 1 of 3: Fill Form</div>
+        <div id="form-section">
+          <div class="form-header">
+            <h1>产品/服务满意度调查问卷</h1>
+            <p>本问卷旨在收集您对我们产品/服务的满意度及改进建议，以便我们更好地为您服务。</p>
+          </div>
+          <form id="interactive-form">
+            
+      <div class="form-field needs-input" id="field-container-age_group">
+        <label for="age_group">您的年龄段是？<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <div>
+              <input type="radio" id="age_group_18岁以下" name="age_group" value="18岁以下" required  aria-label="18岁以下">
+              <label for="age_group_18岁以下">18岁以下</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="age_group_18-24岁" name="age_group" value="18-24岁" required  aria-label="18-24岁">
+              <label for="age_group_18-24岁">18-24岁</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="age_group_25-34岁" name="age_group" value="25-34岁" required  aria-label="25-34岁">
+              <label for="age_group_25-34岁">25-34岁</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="age_group_35-44岁" name="age_group" value="35-44岁" required  aria-label="35-44岁">
+              <label for="age_group_35-44岁">35-44岁</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="age_group_45岁及以上" name="age_group" value="45岁及以上" required  aria-label="45岁及以上">
+              <label for="age_group_45岁及以上">45岁及以上</label>
+            </div>
+          </div>
+        <div class="error-message" id="error-age_group"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-overall_satisfaction">
+        <label for="overall_satisfaction">您对我们产品/服务的整体满意度如何？<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <div>
+              <input type="radio" id="overall_satisfaction_非常满意" name="overall_satisfaction" value="非常满意" required  aria-label="非常满意">
+              <label for="overall_satisfaction_非常满意">非常满意</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="overall_satisfaction_满意" name="overall_satisfaction" value="满意" required  aria-label="满意">
+              <label for="overall_satisfaction_满意">满意</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="overall_satisfaction_一般" name="overall_satisfaction" value="一般" required  aria-label="一般">
+              <label for="overall_satisfaction_一般">一般</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="overall_satisfaction_不满意" name="overall_satisfaction" value="不满意" required  aria-label="不满意">
+              <label for="overall_satisfaction_不满意">不满意</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="overall_satisfaction_非常不满意" name="overall_satisfaction" value="非常不满意" required  aria-label="非常不满意">
+              <label for="overall_satisfaction_非常不满意">非常不满意</label>
+            </div>
+          </div>
+        <div class="error-message" id="error-overall_satisfaction"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-usage_frequency">
+        <label for="usage_frequency">您多久使用一次我们的[产品/服务]？<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <div>
+              <input type="radio" id="usage_frequency_每天" name="usage_frequency" value="每天" required  aria-label="每天">
+              <label for="usage_frequency_每天">每天</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="usage_frequency_每周几次" name="usage_frequency" value="每周几次" required  aria-label="每周几次">
+              <label for="usage_frequency_每周几次">每周几次</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="usage_frequency_每月几次" name="usage_frequency" value="每月几次" required  aria-label="每月几次">
+              <label for="usage_frequency_每月几次">每月几次</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="usage_frequency_很少使用" name="usage_frequency" value="很少使用" required  aria-label="很少使用">
+              <label for="usage_frequency_很少使用">很少使用</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="usage_frequency_从未使用过" name="usage_frequency" value="从未使用过" required  aria-label="从未使用过">
+              <label for="usage_frequency_从未使用过">从未使用过</label>
+            </div>
+          </div>
+        <div class="error-message" id="error-usage_frequency"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-recommendation_likelihood">
+        <label for="recommendation_likelihood">您向朋友或同事推荐我们[产品/服务]的可能性有多大？（请从0到10选择，0代表完全不可能，10代表非常可能）<span class="required-star">*</span></label>
+        <input type="number" id="recommendation_likelihood" name="recommendation_likelihood" required data-original-required="true" placeholder="请输入数字...">
+        <div class="error-message" id="error-recommendation_likelihood"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-most_important_factor">
+        <label for="most_important_factor">在选择此类[产品/服务]时，以下哪个因素对您最重要？（单选）<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <div>
+              <input type="radio" id="most_important_factor_价格" name="most_important_factor" value="价格" required  aria-label="价格">
+              <label for="most_important_factor_价格">价格</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="most_important_factor_质量" name="most_important_factor" value="质量" required  aria-label="质量">
+              <label for="most_important_factor_质量">质量</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="most_important_factor_品牌声誉" name="most_important_factor" value="品牌声誉" required  aria-label="品牌声誉">
+              <label for="most_important_factor_品牌声誉">品牌声誉</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="most_important_factor_功能特性" name="most_important_factor" value="功能特性" required  aria-label="功能特性">
+              <label for="most_important_factor_功能特性">功能特性</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="most_important_factor_客户服务" name="most_important_factor" value="客户服务" required  aria-label="客户服务">
+              <label for="most_important_factor_客户服务">客户服务</label>
+            </div>
+          </div>
+        <div class="error-message" id="error-most_important_factor"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-areas_for_improvement">
+        <label for="areas_for_improvement">您认为我们的[产品/服务]在哪些方面需要改进？（可多选）<span class="required-star">*</span></label>
+        <div class="checkbox-group">
+              <div>
+                <input type="checkbox" id="areas_for_improvement_价格" name="areas_for_improvement" value="价格"  aria-label="价格">
+                <label for="areas_for_improvement_价格">价格</label>
+              </div>
+            
+              <div>
+                <input type="checkbox" id="areas_for_improvement_功能" name="areas_for_improvement" value="功能"  aria-label="功能">
+                <label for="areas_for_improvement_功能">功能</label>
+              </div>
+            
+              <div>
+                <input type="checkbox" id="areas_for_improvement_用户体验" name="areas_for_improvement" value="用户体验"  aria-label="用户体验">
+                <label for="areas_for_improvement_用户体验">用户体验</label>
+              </div>
+            
+              <div>
+                <input type="checkbox" id="areas_for_improvement_客户支持" name="areas_for_improvement" value="客户支持"  aria-label="客户支持">
+                <label for="areas_for_improvement_客户支持">客户支持</label>
+              </div>
+            
+              <div>
+                <input type="checkbox" id="areas_for_improvement_其他" name="areas_for_improvement" value="其他" data-controls-specify="areas_for_improvement_other_specify" aria-label="其他">
+                <label for="areas_for_improvement_其他">其他</label>
+              </div>
+            </div>
+        <div class="error-message" id="error-areas_for_improvement"></div>
+      </div>
+    
+      <div class="form-field  hidden" id="field-container-areas_for_improvement_other_specify">
+        <label for="areas_for_improvement_other_specify">您认为我们的[产品/服务]在哪些方面需要改进？ - 其他（请注明）</label>
+        <input type="text" id="areas_for_improvement_other_specify" name="areas_for_improvement_other_specify"  data-original-required="false" placeholder="请在此输入...">
+        <div class="error-message" id="error-areas_for_improvement_other_specify"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-how_learned_about_us">
+        <label for="how_learned_about_us">您是如何了解到我们的[品牌/产品/服务]的？<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <div>
+              <input type="radio" id="how_learned_about_us_朋友/同事推荐" name="how_learned_about_us" value="朋友/同事推荐" required  aria-label="朋友/同事推荐">
+              <label for="how_learned_about_us_朋友/同事推荐">朋友/同事推荐</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="how_learned_about_us_社交媒体" name="how_learned_about_us" value="社交媒体" required  aria-label="社交媒体">
+              <label for="how_learned_about_us_社交媒体">社交媒体</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="how_learned_about_us_搜索引擎" name="how_learned_about_us" value="搜索引擎" required  aria-label="搜索引擎">
+              <label for="how_learned_about_us_搜索引擎">搜索引擎</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="how_learned_about_us_广告" name="how_learned_about_us" value="广告" required  aria-label="广告">
+              <label for="how_learned_about_us_广告">广告</label>
+            </div>
+          
+            <div>
+              <input type="radio" id="how_learned_about_us_其他" name="how_learned_about_us" value="其他" required data-controls-specify="how_learned_about_us_other_specify" aria-label="其他">
+              <label for="how_learned_about_us_其他">其他</label>
+            </div>
+          </div>
+        <div class="error-message" id="error-how_learned_about_us"></div>
+      </div>
+    
+      <div class="form-field  hidden" id="field-container-how_learned_about_us_other_specify">
+        <label for="how_learned_about_us_other_specify">您是如何了解到我们的[品牌/产品/服务]的？ - 其他（请注明）</label>
+        <input type="text" id="how_learned_about_us_other_specify" name="how_learned_about_us_other_specify"  data-original-required="false" placeholder="请在此输入...">
+        <div class="error-message" id="error-how_learned_about_us_other_specify"></div>
+      </div>
+    
+      <div class="form-field needs-input" id="field-container-overall_impression">
+        <label for="overall_impression">请用一句话描述您对我们[产品/服务]的总体印象。<span class="required-star">*</span></label>
+        <textarea id="overall_impression" name="overall_impression" required data-original-required="true" placeholder="请在此输入..." rows="3"></textarea>
+        <div class="error-message" id="error-overall_impression"></div>
+      </div>
+    
+            <button type="submit" class="submit-button">Review Answers</button>
+          </form>
+        </div>
+
+        <div id="review-section" style="display: none;">
+          <h2>Review Your Answers</h2>
+          <div id="review-content"></div>
+          <div class="action-buttons">
+            <button id="edit-button">Edit Answers</button>
+            <button id="confirm-submit-button" class="primary-action">Confirm & Get Data</button>
+          </div>
+        </div>
+        
+        <div id="completion-section" style="display: none;">
+          <h2>Submission Complete!</h2>
+          <p>Thank you for completing the form: <strong>产品/服务满意度调查问卷</strong>.</p>
+          <h3>Your Responses:</h3>
+          <div id="final-data-display" style="white-space: pre-wrap; background-color: hsl(var(--muted-hsl)); padding: 1rem; border-radius: var(--radius); max-height: 300px; overflow-y: auto;"></div>
+          <div class="action-buttons">
+            <button id="download-json-button"><svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>Download Data (JSON)</button>
+            <button id="download-html-button"><svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 3.5a1.5 1.5 0 011.405 1.016l.13.392A3.004 3.004 0 0113 5c.467 0 .917.107 1.318.302l.395.198A1.5 1.5 0 0116.5 7H18a.5.5 0 01.5.5v10a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-10A.5.5 0 012 7h1.5a1.5 1.5 0 011.787-1.484l.395-.198A3.004 3.004 0 017 5c.467 0 .917.107 1.318.302l.13-.392A1.5 1.5 0 0110 3.5zM7.05 6.33A1.5 1.5 0 006 7.5v.053L7.05 6.33zM13 7.5a1.5 1.5 0 00-1.05-1.417L13 7.552V7.5zm2 6.5a.5.5 0 000-1H5a.5.5 0 000 1h10zm-2.5-2a.5.5 0 000-1h-5a.5.5 0 000 1h5zM11 9.5a.5.5 0 000-1H9a.5.5 0 000 1h2z"></path></svg>Download Form (HTML)</button>
+            <button id="share-form-button"><svg class="icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M12.232 4.232a2.5 2.5 0 013.536 3.536l-1.225 1.224a.75.75 0 001.061 1.06l1.224-1.224a4 4 0 00-5.656-5.656l-3 3a4 4 0 00.263 5.923 2.5 2.5 0 01-3.318-3.731L8.464 3.17A4 4 0 007 2.64V2.5A2.5 2.5 0 019.5 0h1A2.5 2.5 0 0113 2.5v.14a4.002 4.002 0 00-.768 1.592z"></path><path d="M7.768 15.768a2.5 2.5 0 01-3.536-3.536l1.225-1.224a.75.75 0 00-1.06-1.06l-1.224 1.224a4 4 0 005.656 5.656l3-3a4 4 0 00-.263-5.923 2.5 2.5 0 013.318 3.731L11.536 16.83A4 4 0 0013 17.36v.14A2.5 2.5 0 0110.5 20h-1A2.5 2.5 0 017 17.5v-.14c.24-.07.474-.16.701-.274.023-.011.047-.022.067-.033l.001-.001z"></path></svg>Share Form Link</button>
+          </div>
+        </div>
+
+      </div>
+
+      <script>
+        
+      const formSchema = [{"id":"age_group","label":"您的年龄段是？","required":true,"type":"radio","options":["18岁以下","18-24岁","25-34岁","35-44岁","45岁及以上"]},{"id":"overall_satisfaction","label":"您对我们产品/服务的整体满意度如何？","required":true,"type":"radio","options":["非常满意","满意","一般","不满意","非常不满意"]},{"id":"usage_frequency","label":"您多久使用一次我们的[产品/服务]？","required":true,"type":"radio","options":["每天","每周几次","每月几次","很少使用","从未使用过"]},{"id":"recommendation_likelihood","label":"您向朋友或同事推荐我们[产品/服务]的可能性有多大？（请从0到10选择，0代表完全不可能，10代表非常可能）","required":true,"type":"number"},{"id":"most_important_factor","label":"在选择此类[产品/服务]时，以下哪个因素对您最重要？（单选）","required":true,"type":"radio","options":["价格","质量","品牌声誉","功能特性","客户服务"]},{"id":"areas_for_improvement","label":"您认为我们的[产品/服务]在哪些方面需要改进？（可多选）","required":true,"type":"checkbox","options":["价格","功能","用户体验","客户支持","其他"]},{"id":"areas_for_improvement_other_specify","label":"您认为我们的[产品/服务]在哪些方面需要改进？ - 其他（请注明）","required":false,"type":"text"},{"id":"how_learned_about_us","label":"您是如何了解到我们的[品牌/产品/服务]的？","required":true,"type":"radio","options":["朋友/同事推荐","社交媒体","搜索引擎","广告","其他"]},{"id":"how_learned_about_us_other_specify","label":"您是如何了解到我们的[品牌/产品/服务]的？ - 其他（请注明）","required":false,"type":"text"},{"id":"overall_impression","label":"请用一句话描述您对我们[产品/服务]的总体印象。","required":true,"type":"textarea"}];
+      const dataSchemaForDashboard = {"fields":[{"id":"age_group","label":"您的年龄段是？","type":"string","analysisHint":"categorical","options":["18岁以下","18-24岁","25-34岁","35-44岁","45岁及以上"]},{"id":"overall_satisfaction","label":"您对我们产品/服务的整体满意度如何？","type":"string","analysisHint":"categorical","options":["非常满意","满意","一般","不满意","非常不满意"]},{"id":"usage_frequency","label":"您多久使用一次我们的[产品/服务]？","type":"string","analysisHint":"categorical","options":["每天","每周几次","每月几次","很少使用","从未使用过"]},{"id":"recommendation_likelihood","label":"您向朋友或同事推荐我们[产品/服务]的可能性有多大？（请从0到10选择，0代表完全不可能，10代表非常可能）","type":"number","analysisHint":"numerical"},{"id":"most_important_factor","label":"在选择此类[产品/服务]时，以下哪个因素对您最重要？（单选）","type":"string","analysisHint":"categorical","options":["价格","质量","品牌声誉","功能特性","客户服务"]},{"id":"areas_for_improvement","label":"您认为我们的[产品/服务]在哪些方面需要改进？（可多选）","type":"object_of_booleans","analysisHint":"multi_select_categorical","options":["价格","功能","用户体验","客户支持","其他"]},{"id":"areas_for_improvement_other_specify","label":"您认为我们的[产品/服务]在哪些方面需要改进？ - 其他（请注明）","type":"string","analysisHint":"text_summary"},{"id":"how_learned_about_us","label":"您是如何了解到我们的[品牌/产品/服务]的？","type":"string","analysisHint":"categorical","options":["朋友/同事推荐","社交媒体","搜索引擎","广告","其他"]},{"id":"how_learned_about_us_other_specify","label":"您是如何了解到我们的[品牌/产品/服务]的？ - 其他（请注明）","type":"string","analysisHint":"text_summary"},{"id":"overall_impression","label":"请用一句话描述您对我们[产品/服务]的总体印象。","type":"string","analysisHint":"text_summary"}],"formTitle":"产品/服务满意度调查问卷","formDescription":"本问卷旨在收集您对我们产品/服务的满意度及改进建议，以便我们更好地为您服务。","schemaVersion":"1.0"};
+      let currentFormData = {};
+  
+      const formElement = document.getElementById('interactive-form');
+      const formSection = document.getElementById('form-section');
+      const reviewSection = document.getElementById('review-section');
+      const reviewContent = document.getElementById('review-content');
+      const completionSection = document.getElementById('completion-section');
+      const finalDataDisplay = document.getElementById('final-data-display');
+      const progressIndicator = document.getElementById('progress-indicator');
+  
+      const editButton = document.getElementById('edit-button');
+      const confirmSubmitButton = document.getElementById('confirm-submit-button');
+      const downloadJsonButton = document.getElementById('download-json-button');
+      const downloadHtmlButton = document.getElementById('download-html-button');
+      const shareFormButton = document.getElementById('share-form-button');
+  
+      function updateProgress(step, totalSteps, name) {
+        if (progressIndicator) {
+          progressIndicator.innerHTML = `Step ${step} of ${totalSteps}: <span>${name}</span>`;
+          progressIndicator.setAttribute('data-step', step.toString());
+        }
+      }
+  
+      function validateField(field, value, elements) {
+        const errorElement = document.getElementById('error-' + field.id);
+        const inputElement = elements[field.id]; // This can be an HTMLInputElement or RadioNodeList
+        const fieldContainer = document.getElementById('field-container-' + field.id);
+  
+        // Clear previous error
+        errorElement.textContent = ''; 
+        let isFieldValid = true;
+        let isActuallyRequired = field.required;
+  
+        // For "other_specify" fields, only mark as required if its controlling "Other" option is checked
+        if (field.id.endsWith('_other_specify')) {
+          const mainFieldId = field.id.replace('_other_specify', '');
+          const mainFieldElements = elements[mainFieldId]; // RadioNodeList or NodeList for checkboxes
+          let otherOptionChecked = false;
+          if (mainFieldElements) {
+              if (mainFieldElements.nodeName === 'INPUT' && mainFieldElements.type === 'checkbox') { // Single checkbox controlling this (less common)
+                   if (mainFieldElements.checked && mainFieldElements.dataset.controlsSpecify === field.id) otherOptionChecked = true;
+              } else if (mainFieldElements.length) { // RadioNodeList or collection of checkboxes
+                  Array.from(mainFieldElements).forEach(el => {
+                      if (el.checked && el.dataset.controlsSpecify === field.id) {
+                          otherOptionChecked = true;
+                      }
+                  });
+              } else if (mainFieldElements.id && elements[mainFieldElements.id] && elements[mainFieldElements.id].checked && elements[mainFieldElements.id].dataset.controlsSpecify === field.id) {
+                  // Fallback for single checkbox if not directly in elements[mainFieldId]
+                   otherOptionChecked = true;
+              }
+          }
+          isActuallyRequired = otherOptionChecked; // Only required if "Other" is checked
+        }
+  
+        if (isActuallyRequired) {
+          if (field.type.toLowerCase() === 'checkbox' && field.options && field.options.length > 0) { // Checkbox group
+             const groupChecked = Object.values(value).some(v => v === true);
+             if (!groupChecked) {
+               errorElement.textContent = field.label + ' requires at least one selection.';
+               isFieldValid = false;
+             }
+          } else if (field.type.toLowerCase() === 'radio' && (value === null || value === undefined || String(value).trim() === '')) {
+            errorElement.textContent = field.label + ' is required.';
+            isFieldValid = false;
+          } else if (typeof value === 'boolean' && !value) { // Single checkbox
+            errorElement.textContent = field.label + ' is required.';
+            isFieldValid = false;
+          } else if (typeof value !== 'boolean' && (value === null || value === undefined || String(value).trim() === '')) {
+            errorElement.textContent = field.label + ' is required.';
+            isFieldValid = false;
+          }
+        }
+  
+        // Update visual cue for required fields
+        const originalRequired = inputElement && inputElement.dataset && inputElement.dataset.originalRequired === 'true';
+        if (originalRequired || isActuallyRequired) { // Check original or dynamically required
+          if (isFieldValid) {
+              fieldContainer?.classList.remove('needs-input');
+          } else {
+              fieldContainer?.classList.add('needs-input');
+          }
+        }
+  
+        return isFieldValid;
+      }
+  
+      function collectFormData() {
+        const data = {};
+        const elements = formElement.elements;
+        formSchema.forEach(field => {
+          const fieldElement = elements[field.id];
+          let value;
+  
+          // Skip hidden "other_specify" fields
+          const fieldContainer = document.getElementById('field-container-' + field.id);
+          if (fieldContainer && fieldContainer.classList.contains('hidden')) {
+              data[field.id] = ''; // Store empty or skip
+              return;
+          }
+  
+          if (field.type.toLowerCase() === 'checkbox') {
+            if (field.options && field.options.length > 0) {
+              value = {};
+              field.options.forEach(option => {
+                const optionId = field.id + '_' + option.replace(/\s+/g, '_');
+                const checkboxElement = document.getElementById(optionId);
+                if (checkboxElement) {
+                   value[option] = checkboxElement.checked;
+                }
+              });
+            } else {
+              value = fieldElement ? fieldElement.checked : false;
+            }
+          } else if (field.type.toLowerCase() === 'radio') {
+            const radioGroup = elements[field.id];
+            value = radioGroup ? radioGroup.value : null;
+            if (value === undefined || value === "") value = null;
+          } else {
+            value = fieldElement ? fieldElement.value : null;
+          }
+          data[field.id] = value;
+        });
+        return data;
+      }
+  
+      function validateForm() {
+        let allValid = true;
+        const elements = formElement.elements;
+        formSchema.forEach(field => {
+           // Skip validation for hidden "other_specify" fields
+          const fieldContainer = document.getElementById('field-container-' + field.id);
+          if (fieldContainer && fieldContainer.classList.contains('hidden')) {
+              document.getElementById('error-' + field.id).textContent = ''; // Clear error just in case
+              fieldContainer.classList.remove('needs-input'); // Remove visual cue
+              return;
+          }
+  
+          const fieldElement = elements[field.id];
+          let value;
+          if (field.type.toLowerCase() === 'checkbox' && field.options && field.options.length > 0) {
+             value = {};
+              field.options.forEach(option => {
+                const optionId = field.id + '_' + option.replace(/\s+/g, '_');
+                const checkboxElement = document.getElementById(optionId);
+                if (checkboxElement) {
+                   value[option] = checkboxElement.checked;
+                }
+              });
+          } else if (field.type.toLowerCase() === 'radio') {
+             const radioGroup = elements[field.id];
+             value = radioGroup ? radioGroup.value : null;
+          } else {
+             value = fieldElement ? fieldElement.value : null;
+          }
+          if (!validateField(field, value, elements)) {
+            allValid = false;
+          }
+        });
+        return allValid;
+      }
+  
+      function displayReview() {
+        reviewContent.innerHTML = '';
+        formSchema.forEach(field => {
+           // Skip review for hidden "other_specify" fields
+          const fieldContainer = document.getElementById('field-container-' + field.id);
+          if (fieldContainer && fieldContainer.classList.contains('hidden')) {
+              return;
+          }
+  
+          const answer = currentFormData[field.id];
+          let displayAnswer = answer;
+          if (typeof answer === 'boolean') {
+            displayAnswer = answer ? 'Yes' : 'No';
+          } else if (field.type.toLowerCase() === 'checkbox' && field.options && field.options.length > 0 && typeof answer === 'object' && answer !== null) {
+            displayAnswer = Object.entries(answer)
+              .filter(([opt, checked]) => checked)
+              .map(([opt, checked]) => opt)
+              .join(', ') || '(No option selected)';
+          } else if (answer === null || answer === undefined || String(answer).trim() === '') {
+            displayAnswer = '(Not answered)';
+          }
+          reviewContent.innerHTML += `
+            <div class="answer-item">
+              <span class="answer-label">${field.label}:</span>
+              <span class="answer-value">${String(displayAnswer)}</span>
+            </div>
+          `;
+        });
+        formSection.style.display = 'none';
+        completionSection.style.display = 'none';
+        reviewSection.style.display = 'block';
+      }
+  
+      function handleDownloadJson() {
+        const dataToDownload = {
+          formTitle: "产品/服务满意度调查问卷",
+          formDescription: "本问卷旨在收集您对我们产品/服务的满意度及改进建议，以便我们更好地为您服务。",
+          submittedAt: new Date().toISOString(),
+          dataSchema: dataSchemaForDashboard,
+          formData: currentFormData
+        };
+        const jsonData = JSON.stringify(dataToDownload, null, 2);
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '产品/服务满意度调查问卷_data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+  
+      function handleDownloadHtml() {
+        const htmlContent = document.documentElement.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '产品/服务满意度调查问卷_form.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+  
+      function handleShareForm() {
+        if (navigator.share) {
+          navigator.share({
+            title: document.title,
+            text: 'Check out this form: ' + "产品/服务满意度调查问卷",
+            url: window.location.href.startsWith('file:') ? 'This form is a local file. Upload it to a web host to share the link.' : window.location.href,
+          }).catch(console.error);
+        } else {
+          const shareUrl = window.location.href.startsWith('file:') ? 'This form is a local file. Upload it to a web host to share this link.' : window.location.href;
+          alert('Share this link: ' + shareUrl + '\n(Link copied to clipboard if possible)');
+          if (!window.location.href.startsWith('file:')) {
+            navigator.clipboard.writeText(window.location.href).catch(console.error);
+          }
+        }
+      }
+  
+      function setupEventListeners() {
+          formElement.addEventListener('submit', function(event) {
+            event.preventDefault();
+            currentFormData = collectFormData();
+            if (validateForm()) {
+              updateProgress(2, 3, 'Review Answers');
+              displayReview();
+            }
+          });
+  
+          editButton.addEventListener('click', function() {
+            updateProgress(1, 3, 'Fill Form');
+            reviewSection.style.display = 'none';
+            completionSection.style.display = 'none';
+            formSection.style.display = 'block';
+          });
+  
+          confirmSubmitButton.addEventListener('click', function() {
+            updateProgress(3, 3, 'Submission Complete');
+            finalDataDisplay.textContent = JSON.stringify(currentFormData, null, 2);
+            reviewSection.style.display = 'none';
+            formSection.style.display = 'none';
+            completionSection.style.display = 'block';
+          });
+  
+          downloadJsonButton.addEventListener('click', handleDownloadJson);
+          downloadHtmlButton.addEventListener('click', handleDownloadHtml);
+          shareFormButton.addEventListener('click', handleShareForm);
+  
+          // Add real-time validation and "Other (specify)" logic
+          formSchema.forEach(field => {
+              const elements = formElement.elements;
+              const mainFieldElement = elements[field.id]; // This can be an input or a RadioNodeList/HTMLCollection for groups
+              const fieldContainer = document.getElementById('field-container-' + field.id);
+  
+              // Visual cue and real-time validation for original required fields
+              if (field.required && mainFieldElement) {
+                  const eventType = (mainFieldElement.type === 'checkbox' || mainFieldElement.type === 'radio' || mainFieldElement.nodeName === 'SELECT') ? 'change' : 'input';
+  
+                  // If it's a RadioNodeList, attach to each radio button
+                  if (mainFieldElement.constructor === RadioNodeList) {
+                      Array.from(mainFieldElement).forEach(radio => {
+                          radio.addEventListener(eventType, function() {
+                              validateField(field, mainFieldElement.value, elements);
+                          });
+                      });
+                  } else if (mainFieldElement.type === 'checkbox' && field.options && field.options.length > 0) { // Checkbox group
+                      field.options.forEach(option => {
+                          const optId = field.id + '_' + option.replace(/\s+/g, '_');
+                          const cb = document.getElementById(optId);
+                          if (cb) {
+                              cb.addEventListener('change', function() {
+                                  let groupValue = {};
+                                  field.options.forEach(o => {
+                                     const currentCb = document.getElementById(field.id + '_' + o.replace(/\s+/g, '_'));
+                                     if (currentCb) groupValue[o] = currentCb.checked;
+                                  });
+                                  validateField(field, groupValue, elements);
+                              });
+                          }
+                      });
+                  } else if (mainFieldElement) { // Single input, select, single checkbox
+                      mainFieldElement.addEventListener(eventType, function() {
+                          const value = mainFieldElement.type === 'checkbox' ? mainFieldElement.checked : mainFieldElement.value;
+                          validateField(field, value, elements);
+                      });
+                  }
+              }
+  
+  
+              // "Other (specify)" logic
+              if ((field.type.toLowerCase() === 'radio' || (field.type.toLowerCase() === 'checkbox' && field.options && field.options.length > 0))) {
+                const controllingInputs = field.type.toLowerCase() === 'radio' ?
+                                         (elements[field.id] ? Array.from(elements[field.id]) : []) : // RadioNodeList to Array
+                                         (field.options ? field.options.map(opt => document.getElementById(field.id + '_' + opt.replace(/\s+/g, '_'))) : []);
+  
+                controllingInputs.forEach(inputControl => {
+                  if (inputControl && inputControl.dataset.controlsSpecify) {
+                    const specifyFieldId = inputControl.dataset.controlsSpecify;
+                    const specifyContainer = document.getElementById('field-container-' + specifyFieldId);
+                    const specifyInput = document.getElementById(specifyFieldId);
+  
+                    if (specifyContainer && specifyInput) {
+                      inputControl.addEventListener('change', function(event) {
+                        const target = event.target;
+                        let anyOtherControllerChecked = false;
+                         // Check all inputs that control *this specific* specifyFieldId
+                        controllingInputs.forEach(inp => {
+                          if (inp && inp.dataset.controlsSpecify === specifyFieldId && inp.checked) {
+                            anyOtherControllerChecked = true;
+                          }
+                        });
+  
+                        if (anyOtherControllerChecked) {
+                          specifyContainer.classList.remove('hidden');
+                          specifyInput.required = true; // Dynamically set required
+                          specifyInput.dataset.originalRequired = "true"; // Mark for visual cue logic
+                           // Trigger validation for the now visible/required specify field
+                          validateField({ id: specifyFieldId, label: specifyInput.previousElementSibling?.textContent || 'This field', required: true, type: 'text' }, specifyInput.value, elements);
+                        } else {
+                          specifyContainer.classList.add('hidden');
+                          specifyInput.required = false;
+                          specifyInput.dataset.originalRequired = "false";
+                          specifyInput.value = ''; // Clear value
+                          document.getElementById('error-' + specifyFieldId).textContent = ''; // Clear error
+                          specifyContainer.classList.remove('needs-input'); // Remove visual cue
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            });
+  
+          // Dark mode listener
+          const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+          function toggleDarkMode(matches) {
+            if (matches) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+          }
+          toggleDarkMode(darkModeMatcher.matches);
+          darkModeMatcher.addListener((e) => toggleDarkMode(e.matches));
+      }
+  
+  
+      document.addEventListener('DOMContentLoaded', function() {
+        setupEventListeners();
+        updateProgress(1, 3, 'Fill Form'); // Initial state
+      });
+  
+    
+      </script>
+    </body>
+    </html>
+  

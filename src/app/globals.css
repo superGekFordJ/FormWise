@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 220 14% 96%; /* Soft Gray - Main Background */
+    --foreground: 220 25% 15%; /* Dark Gray - Text */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 220 25% 15%; /* Dark Gray */
+
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 220 25% 15%; /* Dark Gray */
+
+    /* Updated as per new style guidelines */
+    --primary: 127 35% 73%; /* Light Green - Main Interactive Elements */
+    --primary-foreground: 127 30% 25%; /* Dark Green Text on Light Green */
+
+    --secondary: 220 14% 93%; /* Soft Gray - For backgrounds and less important elements (slightly darker than main bg for contrast) */
+    --secondary-foreground: 220 20% 30%; /* Darker Text on Secondary Gray */
+
+    --muted: 220 10% 90%; /* Lighter Gray - Kept for subtle backgrounds/dividers */
+    --muted-foreground: 220 20% 45%; /* Medium Gray */
+
+    --accent: 174 63% 37%; /* Teal - Accents, Highlights, CTAs */
+    --accent-foreground: 174 100% 96%; /* Light Text on Teal */
+    /* End of style guideline updates */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 10% 88%; /* Adjusted for theme */
+    --input: 220 10% 88%; /* Adjusted for theme */
+    --ring: 127 35% 65%; /* Adjusted to primary color family - Lighter Green for Focus Rings */
+
+    --radius: 0.5rem;
+
+    /* Chart colors (can be kept generic or themed if needed) */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    
+    /* Sidebar specific colors (can be adjusted or removed if sidebar not prominent) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 25% 10%; /* Dark background */
+    --foreground: 220 15% 90%; /* Light text */
+
+    --card: 220 25% 12%; /* Dark card */
+    --card-foreground: 220 15% 90%; /* Light text on card */
+
+    --popover: 220 25% 12%; /* Dark popover */
+    --popover-foreground: 220 15% 90%; /* Light text on popover */
+
+    /* Updated as per new style guidelines for dark theme */
+    --primary: 127 40% 65%; /* Light Green - slightly adjusted for dark */
+    --primary-foreground: 127 25% 15%; /* Dark text on light green */
+
+    --secondary: 220 15% 20%; /* Darker Soft Gray */
+    --secondary-foreground: 220 10% 80%; /* Lighter text on secondary */
+    
+    --muted: 220 15% 25%; /* Kept for subtle dark backgrounds */
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 174 60% 45%; /* Teal - slightly adjusted for dark */
+    --accent-foreground: 174 100% 97%; /* Light text on Teal */
+    /* End of style guideline updates for dark theme */
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 30%;
+    --input: 220 15% 30%;
+    --ring: 127 40% 55%; /* Adjusted to primary color family for dark - Green for focus rings */
+
+    /* Chart colors for dark theme */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    /* Sidebar specific colors for dark theme */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
