@@ -101,9 +101,3 @@ And that's it! You should now have FormWise running locally on your computer.
 We think FormWise is pretty cool, but we know it can always be better! If you have ideas for new features, find any bugs, or want to improve something, we'd love for you to contribute.
 
 We've put together a [Development Guide](docs/development_guide.md) that has more details on how to set up your development environment, our coding guidelines, and how to submit your changes. We're excited to see what you come up with!
-
-## 📜 License
-
-FormWise is shared with the world under the MIT License. This basically means you're free to use, copy, modify, and even sell your own versions of the software, as long as you include the original copyright and license notice in your copy.
-
-You can find the full text of the license in the [LICENSE](LICENSE) file in this repository.
