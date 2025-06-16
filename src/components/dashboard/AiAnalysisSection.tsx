@@ -1,10 +1,10 @@
-import { Brain, Sparkles } from 'lucide-react';
+import { Brain } from 'lucide-react'; // Removed Sparkles as it's in AiSummaryDisplay
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+// Card, CardContent, CardHeader, CardTitle, Skeleton are removed as they are in AiSummaryDisplay
 import { useCallback, useState, useEffect, memo } from 'react';
+import AiSummaryDisplay from './AiSummaryDisplay'; // Added import
 import type { UseMutationResult } from '@tanstack/react-query';
 import type { SummarizeFormResultsInput } from '@/ai/flows/summarize-form-results';
 
